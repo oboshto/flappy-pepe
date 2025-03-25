@@ -33,11 +33,6 @@ const Game = () => {
       // Game over event
       (finalScore: number) => {
         setScore(finalScore);
-        // Update highest score if needed
-        if (finalScore > highScore) {
-          setHighScore(finalScore);
-          localStorage.setItem('flappyPepeHighScore', finalScore.toString());
-        }
       }
     );
     
