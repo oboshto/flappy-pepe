@@ -15,26 +15,26 @@ const Game = () => {
   const gameContainerRef = useRef<HTMLDivElement>(null);
   const gameInstanceRef = useRef<Phaser.Game | null>(null);
   
-  // Инициализируем игру при монтировании компонента
+  // Initialize game on component mount
   useEffect(() => {
     if (!gameContainerRef.current || gameInstanceRef.current) return;
     
-    // Используем ширину экрана для мобильных устройств, но не менее 320px
-    // Сохраняем соотношение сторон 3:4 для высоты
+    // Use screen width for mobile devices, but not less than 320px
+    // Maintain 3:4 aspect ratio for height
     const mobileWidth = Math.max(window.innerWidth, 320);
     const canvasWidth = isMobile ? mobileWidth : 400;
     const canvasHeight = isMobile ? mobileWidth * 1.5 : 600;
     
-    // Создаем игру с обработчиками событий
+    // Create game with event handlers
     gameInstanceRef.current = createGame('game-container', canvasWidth, canvasHeight, 
-      // Обновление счета
+      // Update score
       (newScore: number) => {
         setScore(newScore);
       },
-      // Событие окончания игры
+      // Game over event
       (finalScore: number) => {
         setScore(finalScore);
-        // Обновляем высший балл, если нужно
+        // Update highest score if needed
         if (finalScore > highScore) {
           setHighScore(finalScore);
           localStorage.setItem('flappyPepeHighScore', finalScore.toString());
@@ -42,12 +42,12 @@ const Game = () => {
       }
     );
     
-    // Обработчик события окончания игры
+    // Game over event handler
     const handleGameOver = () => {
       setShowShareButtons(true);
     };
     
-    // Обработчик нажатия на кнопку Share в игре
+    // Share button handler in game
     const handleShare = () => {
       shareScore('twitter');
     };
@@ -55,7 +55,7 @@ const Game = () => {
     window.addEventListener('flappyPepeGameOver', handleGameOver);
     window.addEventListener('flappyPepeShare', handleShare);
     
-    // Очистка при размонтировании
+    // Cleanup on unmount
     return () => {
       window.removeEventListener('flappyPepeGameOver', handleGameOver);
       window.removeEventListener('flappyPepeShare', handleShare);
@@ -66,7 +66,7 @@ const Game = () => {
     };
   }, [isMobile, highScore]);
   
-  // Функция для шеринга результата
+  // Function to share result
   const shareScore = (platform: string) => {
     const text = `I scored ${score} points in Flappy Pepe! Can you beat my score?`;
     const url = window.location.href;
@@ -82,7 +82,7 @@ const Game = () => {
     window.open(shareUrl, '_blank');
   };
   
-  // Скрыть кнопки шеринга при перезапуске игры
+  // Hide share buttons when restarting game
   useEffect(() => {
     if (!showShareButtons) return;
     
@@ -98,7 +98,7 @@ const Game = () => {
     
     window.addEventListener('keydown', handleKeyDown);
     
-    // Слушаем событие запуска игры от Phaser
+    // Listen for game start event from Phaser
     window.addEventListener('flappyPepeGameStart', handleGameStart);
     
     return () => {
@@ -109,7 +109,7 @@ const Game = () => {
   
   return (
     <div className="relative flex flex-col items-center justify-center">
-      {/* Контейнер для игры Phaser */}
+      {/* Container for Phaser game */}
       <div 
         id="game-container" 
         ref={gameContainerRef}

@@ -6,15 +6,15 @@ export class BootScene extends Phaser.Scene {
   }
 
   preload(): void {
-    // Загрузка изображений с высоким качеством
+    // Loading high-quality images
     this.load.image('background', '/src/assets/sprites/background-day.png');
     this.load.image('ground', '/src/assets/sprites/base.png');
     this.load.image('pipe', '/src/assets/sprites/pipe-green.png');
     this.load.image('pepe', '/src/assets/pepe.png');
     this.load.image('gameover', '/src/assets/sprites/gameover.png');
-    // Удаляем загрузку message.png, так как используем собственный текст
+    // Remove message.png loading, as we use custom text
     
-    // Отображаем прогресс загрузки
+    // Display loading progress
     const width = this.cameras.main.width;
     const height = this.cameras.main.height;
     
