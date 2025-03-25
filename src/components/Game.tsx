@@ -78,7 +78,12 @@ const Game = () => {
         break;
     }
     
-    window.open(shareUrl, '_blank');
+    // For iOS Safari, use location.href instead of window.open
+    if (isMobile && /iPhone|iPad|iPod/i.test(navigator.userAgent) && /Safari/i.test(navigator.userAgent)) {
+      window.location.href = shareUrl;
+    } else {
+      window.open(shareUrl, '_blank');
+    }
   };
   
   // Hide share buttons when restarting game
@@ -114,7 +119,7 @@ const Game = () => {
         ref={gameContainerRef}
         className="relative overflow-hidden" 
         style={isMobile ? 
-          { width: '100%', height: 'auto', maxWidth: '100vw' } : 
+          { width: '100%', height: 'auto', maxWidth: '100vw', aspectRatio: '2/3', minHeight: '300px' } : 
           { width: '400px', height: '600px' }
         }
       ></div>

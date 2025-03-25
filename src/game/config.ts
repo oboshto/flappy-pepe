@@ -22,7 +22,9 @@ export const gameConfig = (parent: string, width = 400, height = 600): Phaser.Ty
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH,
       width: width,
-      height: height
+      height: height,
+      parent: parent,
+      expandParent: false
     },
     scene: [BootScene, MenuScene, GameScene, GameOverScene],
     pixelArt: false,
