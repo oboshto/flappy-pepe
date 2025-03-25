@@ -2,8 +2,6 @@ import Phaser from 'phaser';
 
 export class MenuScene extends Phaser.Scene {
   private ground!: Phaser.GameObjects.TileSprite;
-  private titleText!: Phaser.GameObjects.Text;
-  private instructionsText!: Phaser.GameObjects.Text;
   private pepe!: Phaser.GameObjects.Sprite;
   private pepeAnimPoint = 0;
   
@@ -15,7 +13,6 @@ export class MenuScene extends Phaser.Scene {
     const { width, height } = this.scale;
     
     // Add background
-    const bgImage = this.textures.get('background').getSourceImage();
     this.add.tileSprite(0, 0, width, height, 'background')
       .setOrigin(0, 0)
       .setScrollFactor(0);
@@ -38,7 +35,7 @@ export class MenuScene extends Phaser.Scene {
     (this.pepe.texture.source[0] as any).scaleMode = Phaser.ScaleModes.LINEAR;
     
     // Create a title text instead of image
-    this.titleText = this.add.text(
+    this.add.text(
       width / 2, 
       height / 4, 
       'FLAPPY PEPE', 
@@ -53,7 +50,7 @@ export class MenuScene extends Phaser.Scene {
     ).setOrigin(0.5, 0.5);
     
     // Add game instructions
-    this.instructionsText = this.add.text(
+    this.add.text(
       width / 2,
       height / 2 - 80,
       'TAP TO JUMP',
