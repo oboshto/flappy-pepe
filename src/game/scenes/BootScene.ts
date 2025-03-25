@@ -1,4 +1,10 @@
 import Phaser from 'phaser';
+// Import assets
+import backgroundImg from '../../assets/sprites/background-day.png';
+import groundImg from '../../assets/sprites/base.png';
+import pipeImg from '../../assets/sprites/pipe-green.png';
+import pepeImg from '../../assets/pepe.png';
+import gameoverImg from '../../assets/sprites/gameover.png';
 
 export class BootScene extends Phaser.Scene {
   constructor() {
@@ -7,11 +13,11 @@ export class BootScene extends Phaser.Scene {
 
   preload(): void {
     // Loading high-quality images
-    this.load.image('background', '/src/assets/sprites/background-day.png');
-    this.load.image('ground', '/src/assets/sprites/base.png');
-    this.load.image('pipe', '/src/assets/sprites/pipe-green.png');
-    this.load.image('pepe', '/src/assets/pepe.png');
-    this.load.image('gameover', '/src/assets/sprites/gameover.png');
+    this.load.image('background', backgroundImg);
+    this.load.image('ground', groundImg);
+    this.load.image('pipe', pipeImg);
+    this.load.image('pepe', pepeImg);
+    this.load.image('gameover', gameoverImg);
     // Remove message.png loading, as we use custom text
     
     // Display loading progress
