@@ -5,7 +5,7 @@ import { createGame } from '../game/config';
 const Game = () => {
   const { isMobile } = useResponsive();
   const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(() => {
+  const [highScore] = useState(() => {
     const saved = localStorage.getItem('flappyPepeHighScore');
     return saved ? parseInt(saved, 10) : 0;
   });
@@ -25,7 +25,10 @@ const Game = () => {
     const canvasHeight = isMobile ? mobileWidth * 1.5 : 600;
     
     // Create game with event handlers
-    gameInstanceRef.current = createGame('game-container', canvasWidth, canvasHeight, 
+    gameInstanceRef.current = createGame(
+      'game-container', 
+      canvasWidth, 
+      canvasHeight, 
       // Update score
       (newScore: number) => {
         setScore(newScore);
@@ -33,7 +36,9 @@ const Game = () => {
       // Game over event
       (finalScore: number) => {
         setScore(finalScore);
-      }
+      },
+      // Pass isMobile flag
+      isMobile
     );
     
     // Game over event handler

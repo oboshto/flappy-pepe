@@ -38,7 +38,8 @@ export const createGame = (
   width: number, 
   height: number, 
   onScoreUpdate?: (score: number) => void,
-  onGameOver?: (score: number) => void
+  onGameOver?: (score: number) => void,
+  isMobile?: boolean
 ): Phaser.Game => {
   const config = gameConfig(containerId, width, height);
   const game = new Phaser.Game(config);
@@ -47,7 +48,8 @@ export const createGame = (
   (window as any).gameData = {
     onScoreUpdate,
     onGameOver,
-    highScore: Number(localStorage.getItem('flappyPepeHighScore') || '0')
+    highScore: Number(localStorage.getItem('flappyPepeHighScore') || '0'),
+    isMobile: isMobile || false
   };
   
   return game;

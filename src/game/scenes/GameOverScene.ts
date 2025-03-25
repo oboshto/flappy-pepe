@@ -60,6 +60,14 @@ export class GameOverScene extends Phaser.Scene {
       }
     ).setOrigin(0.5);
     
+    // Function to restart the game
+    const restartGame = () => {
+      this.scene.start('GameScene');
+    };
+    
+    // Add spacebar handler for restart
+    this.input.keyboard?.on('keydown-SPACE', restartGame);
+    
     // "Play Again" button
     const playAgainButton = this.add
       .container(width / 2, height / 2 + 120)
@@ -142,9 +150,7 @@ export class GameOverScene extends Phaser.Scene {
         scaleY: 0.95,
         duration: 50,
         yoyo: true,
-        onComplete: () => {
-          this.scene.start('GameScene');
-        }
+        onComplete: restartGame
       });
     });
     
@@ -244,5 +250,21 @@ export class GameOverScene extends Phaser.Scene {
       detail: { score: this.score }
     });
     window.dispatchEvent(gameOverEvent);
+    
+    // Get isMobile flag from gameData
+    const isMobile = (window as any).gameData?.isMobile || false;
+    
+    // Add hint text appropriate for the device
+    this.add.text(
+      width / 2, 
+      height - 25, 
+      isMobile ? 'Tap button to play again' : 'Press SPACE to play again', 
+      {
+        fontFamily: '"Press Start 2P"',
+        fontSize: '12px',
+        color: '#fff',
+        align: 'center'
+      }
+    ).setOrigin(0.5);
   }
 } 

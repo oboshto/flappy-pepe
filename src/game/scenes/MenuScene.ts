@@ -34,6 +34,9 @@ export class MenuScene extends Phaser.Scene {
     // Enable smoothing for Pepe sprite
     (this.pepe.texture.source[0] as any).scaleMode = Phaser.ScaleModes.LINEAR;
     
+    // Get isMobile flag from gameData
+    const isMobile = (window as any).gameData?.isMobile || false;
+    
     // Create a title text instead of image
     this.add.text(
       width / 2, 
@@ -53,7 +56,7 @@ export class MenuScene extends Phaser.Scene {
     this.add.text(
       width / 2,
       height / 2 - 80,
-      'TAP TO JUMP',
+      isMobile ? 'TAP TO JUMP' : 'PRESS SPACE TO JUMP',
       {
         fontFamily: '"Press Start 2P"',
         fontSize: '16px',
@@ -81,7 +84,7 @@ export class MenuScene extends Phaser.Scene {
     this.add.text(
       width / 2,
       height / 2 + 80,
-      'CLICK TO START',
+      isMobile ? 'TAP TO START' : 'CLICK TO START',
       {
         fontFamily: '"Press Start 2P"',
         fontSize: '18px',
@@ -91,10 +94,16 @@ export class MenuScene extends Phaser.Scene {
       }
     ).setOrigin(0.5, 0.5);
     
-    // Handle click to transition to game
-    this.input.on('pointerdown', () => {
+    // Function to start the game
+    const startGame = () => {
       this.scene.start('GameScene');
-    });
+    };
+    
+    // Handle click to transition to game
+    this.input.on('pointerdown', startGame);
+    
+    // Handle spacebar to start game
+    this.input.keyboard?.on('keydown-SPACE', startGame);
     
     // Create simple animation for Pepe
     this.time.addEvent({
