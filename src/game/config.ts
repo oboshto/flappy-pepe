@@ -15,8 +15,8 @@ export const gameConfig = (parent: string, width = 400, height = 600): Phaser.Ty
       default: 'arcade',
       arcade: {
         gravity: { y: 0, x: 0 },
-        debug: false
-      }
+        debug: false,
+      },
     },
     scale: {
       mode: Phaser.Scale.FIT,
@@ -24,33 +24,37 @@ export const gameConfig = (parent: string, width = 400, height = 600): Phaser.Ty
       width: width,
       height: height,
       parent: parent,
-      expandParent: false
+      expandParent: false,
+    },
+    audio: {
+      disableWebAudio: false,
+      noAudio: false,
     },
     scene: [BootScene, MenuScene, GameScene, GameOverScene],
     pixelArt: false,
     roundPixels: false,
-    canvasStyle: 'display: block; width: 100%; height: 100%;'
+    canvasStyle: 'display: block; width: 100%; height: 100%;',
   };
 };
 
 export const createGame = (
-  containerId: string, 
-  width: number, 
-  height: number, 
+  containerId: string,
+  width: number,
+  height: number,
   onScoreUpdate?: (score: number) => void,
   onGameOver?: (score: number) => void,
-  isMobile?: boolean
+  isMobile?: boolean,
 ): Phaser.Game => {
   const config = gameConfig(containerId, width, height);
   const game = new Phaser.Game(config);
-  
+
   // Global game data
   (window as any).gameData = {
     onScoreUpdate,
     onGameOver,
     highScore: Number(localStorage.getItem('flappyPepeHighScore') || '0'),
-    isMobile: isMobile || false
+    isMobile: isMobile || false,
   };
-  
+
   return game;
-}; 
+};
