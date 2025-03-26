@@ -4,7 +4,7 @@ import { createGame } from '../game/config';
 
 const Game = () => {
   const { isMobile } = useResponsive();
-  const [score, setScore] = useState(0);
+  const [_score, setScore] = useState(0);
   const [highScore] = useState(() => {
     const saved = localStorage.getItem('flappyPepeHighScore');
     return saved ? parseInt(saved, 10) : 0;
