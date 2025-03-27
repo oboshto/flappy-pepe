@@ -67,7 +67,7 @@ const Game = () => {
 
   // Function to share result
   const shareScore = (platform: string) => {
-    const text = `Just dominated Flappy Pepe! 🐸 Precision, patience, and a little bit of luck . #Flappypepe #Vikingpepe @our_handle`;
+    const text = `Just dominated Flappy Pepe! 🐸 Precision, patience, and a little bit of luck. #Flappypepe #Vikingpepe @VikingP3P3`;
     const url = window.location.href;
 
     let shareUrl = '';
